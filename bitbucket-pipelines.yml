@@ -1,0 +1,82 @@
+image: ubuntu:latest
+
+definitions:
+  scripts:
+    - script: &setup-node |
+        echo "Installing fnm..."
+        apt-get update && apt-get install -y curl
+        curl -fsSL https://fnm.vercel.app/install | bash
+        export PATH="$HOME/.local/share/fnm:$PATH"
+        eval "$(fnm env)"
+        echo "Reading Node version from package.json..."
+        NODE_VERSION=$(grep -o '"node":\s*"[^"]*"' package.json | grep -o '[0-9.]*' | head -1)
+        echo "Installing Node.js v${NODE_VERSION:-lts}..."
+        fnm install ${NODE_VERSION:-lts}
+        fnm use ${NODE_VERSION:-lts}
+        node --version
+
+    - script: &install-pnpm |
+        echo "Installing pnpm..."
+        npm install -g pnpm@latest
+        echo "Installing dependencies..."
+        pnpm install
+
+    - script: &install-vercel |
+        echo "Installing pnpm and Vercel CLI..."
+        npm install -g pnpm@latest vercel@latest
+        echo "Installing dependencies..."
+        pnpm install
+
+pipelines:
+  branches:
+    dev:
+      - step:
+          name: Lint
+          script:
+            - *setup-node
+            - *install-pnpm
+            - echo "Running lint..."
+            - pnpm lint
+
+      - step:
+          name: Deploy Staging
+          script:
+            - *setup-node
+            - *install-vercel
+            - export VERCEL_TOKEN=$STAGING_VERCEL_TOKEN
+            - export VERCEL_ORG_ID=$STAGING_VERCEL_ORG_ID
+            - export VERCEL_PROJECT_ID=$STAGING_VERCEL_PROJECT_ID
+            - export NEXT_PUBLIC_API_URL=$STAGING_NEXT_PUBLIC_API_URL
+            - export NEXT_PUBLIC_APP_ENV=staging
+            - echo "Pulling Vercel environment..."
+            - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+            - echo "Building..."
+            - vercel build --token=$VERCEL_TOKEN
+            - echo "Deploying to staging..."
+            - vercel deploy --prebuilt --token=$VERCEL_TOKEN
+
+    main:
+      - step:
+          name: Lint
+          script:
+            - *setup-node
+            - *install-pnpm
+            - echo "Running lint..."
+            - pnpm lint
+
+      - step:
+          name: Deploy Production
+          script:
+            - *setup-node
+            - *install-vercel
+            - export VERCEL_TOKEN=$PRODUCTION_VERCEL_TOKEN
+            - export VERCEL_ORG_ID=$PRODUCTION_VERCEL_ORG_ID
+            - export VERCEL_PROJECT_ID=$PRODUCTION_VERCEL_PROJECT_ID
+            - export NEXT_PUBLIC_API_URL=$PRODUCTION_NEXT_PUBLIC_API_URL
+            - export NEXT_PUBLIC_APP_ENV=production
+            - echo "Pulling Vercel environment..."
+            - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+            - echo "Building for production..."
+            - vercel build --prod --token=$VERCEL_TOKEN
+            - echo "Deploying to production..."
+            - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN

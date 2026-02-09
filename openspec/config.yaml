@@ -1,0 +1,118 @@
+schema: spec-driven
+
+context: |
+  ## Tech Stack
+
+  - **Framework:** Next.js (App Router) with React (latest stable)
+  - **Language:** TypeScript (strict mode) — latest modern best practices for type safety and code quality. All types, interfaces, enums, and classes must be properly defined. The `any` type is strictly forbidden.
+  - **Package Manager:** PNPM (workspace-enabled)
+  - **Formatting & Linting:** Biome.js
+  - **Styling:** Tailwind CSS (latest) — responsive-first, accessible design using modern utility patterns
+  - **UI Components:** DaisyUI (latest) with customized built-in themes. Light theme is the default. Define custom components (toast, modal, carousel, etc.) as needed per requirements.
+  - **UI Icons:** Lucide React (lucide-react)
+  - **Form Layouts:** Follow Tailwind CSS Plus application UI form layout patterns (https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts) for best responsive design.
+
+  ## Architecture
+
+  - **Principles:** SOLID principles throughout. Clean, layered architecture.
+  - **Dependency Injection:** Awilix (https://github.com/jeffijoe/awilix) for both frontend and backend. Always bind via interfaces in the DI container.
+  - **Layers:**
+    - **Engine / Facade Layer:** Business logic and orchestration across multiple services. Created only when orchestration of several services or shared business logic is genuinely needed — never create unnecessary engine/facade layers.
+    - **Service Layer:** Direct integration with APIs, databases, and external services. No business logic beyond simple pass-through.
+    - **Frontend Service Layer:** Direct access to external services (API, Smart Contract, Payment Gateway, OAuth, Map Library, third-party SDKs, etc.).
+    - **Frontend Engine / Facade Layer:** Orchestrates multiple frontend services and handles business logic. Can share logic with backend engine/facade layers when possible.
+  - **Shared Logic:** Engine/facade layers may be shared between frontend and backend when the logic is identical or substantially overlapping.
+
+  ## Database & ORM
+
+  - **ORM:** Drizzle ORM with best-practice migration patterns.
+  - **Primary Database:** Vercel Postgres (PostgreSQL).
+  - **Vector Data:** Vercel Postgres with pgvector extension for ML/vector workloads.
+  - **Local Development:** Docker Compose for Vercel Postgres DB.
+
+  ## Vercel Ecosystem Services
+
+  - **Relational DB:** Vercel Postgres (primary)
+  - **Caching & Shared State:** Vercel KV (Redis)
+  - **Static File Storage:** Vercel Blob
+  - **Realtime / Pub/Sub:** Pusher or Ably (dedicated provider, chosen per requirement)
+  - **Background Jobs / Queues:** Vercel Queues (QStash) or Inngest for durable execution
+  - **AI / ML:** Vercel AI SDK for backend automation
+  - **Local Testing:** Vercel CLI with development environment variables
+
+  ## Realtime
+
+  - Use WebSocket or SSE for realtime features based on specific requirements and use cases.
+
+  ## Internationalization (i18n)
+
+  - **Library:** i18next — centralized translation references.
+  - **Frontend:** react-i18next
+  - **Backend (Next.js API):** i18next
+  - **UI:** Theme and language switch/selector in the main layout.
+
+  ## Security
+
+  - **CSRF Protection:** Implemented for all form submissions and API mutation requests. Verified working with Next.js.
+  - **CORS Protection:** Implemented for all API requests. Allowed origins controlled via `.env` variables.
+  - **Logging Sanitization:** All request payloads and response data are sanitized to strip sensitive information before logging.
+
+  ## Core Features
+
+  - **Logger Service:** Centralized logging with sensitive data sanitization across all API request payloads and response data. Every API request carries a correlation ID for end-to-end tracing.
+  - **Global Error Handling:** API-level global error handler that catches server errors automatically, logs them via the logger service (with correlation ID), and produces debuggable output in production.
+
+  ## Accessibility & SEO
+
+  - Use semantic HTML elements and ARIA roles throughout for accessibility and SEO.
+
+  ## Validation
+
+  - **Schema Validation:** Zod for both frontend and backend object/schema validation.
+
+  ## Testing
+
+  - **Component Testing:** React Testing Library with proper test coverage.
+  - **Unit Testing:** Vitest for components, API endpoints, and utilities (frontend and backend).
+  - **Integration Testing:** Proper integration tests for API and components to verify features/specifications work correctly. Proper mocking for DB and external services as needed.
+  - **End-to-End Testing:** Playwright.
+  - **Coverage Target:** Minimum 90% test coverage. All tests must pass.
+  - **Comprehensive Coverage:** All components and API endpoints must have test coverage.
+
+  ## Conventions
+
+  - We use conventional commits.
+  - Strict TypeScript — no `any`, no implicit any, no untyped externals without declaration.
+  - Prefer composition over inheritance.
+  - All environment-specific config via `.env` files.
+  - All external service integrations must be mockable for testing.
+
+rules:
+  proposal:
+    - Keep proposals focused and under 800 words.
+    - Always include a "Non-goals" section.
+    - Clearly state which architecture layers (engine/facade, service) are involved.
+    - Identify security considerations (CSRF, CORS, data sanitization) if applicable.
+    - Specify which Vercel ecosystem services are used and why.
+    - Note i18n and accessibility impact if applicable.
+
+  tasks:
+    - Break tasks into chunks of max 2 hours.
+    - Each task must specify the architecture layer it belongs to (engine/facade, service, component, API, etc.).
+    - Include test expectations (unit, integration, or e2e) for every task that changes behavior.
+    - Reference Zod schemas for any validation-related task.
+    - Specify DI container registration if new services or engines are introduced.
+    - Tag tasks that require Drizzle migrations.
+    - Tag tasks that involve CSRF or CORS changes.
+    - Tag tasks that affect i18n translation keys.
+
+  spec:
+    - Every spec must define acceptance criteria that map to testable assertions.
+    - Specify which architecture layers are affected.
+    - Define required Zod schemas for input/output validation.
+    - Include security requirements (CSRF, CORS, sanitization) where applicable.
+    - Specify i18n keys for any user-facing text.
+    - Note accessibility requirements (semantic HTML, ARIA roles).
+    - Define realtime requirements (WebSocket/SSE) if applicable.
+    - List Vercel ecosystem services involved.
+    - Define mocking strategy for integration tests.

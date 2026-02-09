@@ -1,0 +1,87 @@
+stages:
+  - lint
+  - deploy
+
+default:
+  image: ubuntu:latest
+
+.setup-node: &setup-node
+  - echo "Installing fnm..."
+  - apt-get update && apt-get install -y curl
+  - curl -fsSL https://fnm.vercel.app/install | bash
+  - export PATH="$HOME/.local/share/fnm:$PATH"
+  - eval "$(fnm env)"
+  - echo "Reading Node version from package.json..."
+  - NODE_VERSION=$(grep -o '"node":\s*"[^"]*"' package.json | grep -o '[0-9.]*' | head -1)
+  - echo "Installing Node.js v${NODE_VERSION:-lts}..."
+  - fnm install ${NODE_VERSION:-lts}
+  - fnm use ${NODE_VERSION:-lts}
+  - node --version
+
+.install-pnpm: &install-pnpm
+  - echo "Installing pnpm..."
+  - npm install -g pnpm@latest
+  - echo "Installing dependencies..."
+  - pnpm install
+
+.install-vercel: &install-vercel
+  - echo "Installing Vercel CLI..."
+  - npm install -g pnpm@latest vercel@latest
+  - echo "Installing dependencies..."
+  - pnpm install
+
+lint:
+  stage: lint
+  before_script:
+    - *setup-node
+    - *install-pnpm
+  script:
+    - echo "Running lint..."
+    - pnpm lint
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "dev"
+
+deploy-staging:
+  stage: deploy
+  needs: [lint]
+  variables:
+    VERCEL_TOKEN: $STAGING_VERCEL_TOKEN
+    VERCEL_ORG_ID: $STAGING_VERCEL_ORG_ID
+    VERCEL_PROJECT_ID: $STAGING_VERCEL_PROJECT_ID
+    NEXT_PUBLIC_API_URL: $STAGING_NEXT_PUBLIC_API_URL
+    NEXT_PUBLIC_APP_ENV: staging
+  before_script:
+    - *setup-node
+    - *install-vercel
+  script:
+    - echo "Pulling Vercel environment..."
+    - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+    - echo "Building..."
+    - vercel build --token=$VERCEL_TOKEN
+    - echo "Deploying to staging..."
+    - vercel deploy --prebuilt --token=$VERCEL_TOKEN
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev"
+
+deploy-production:
+  stage: deploy
+  needs: [lint]
+  variables:
+    VERCEL_TOKEN: $PRODUCTION_VERCEL_TOKEN
+    VERCEL_ORG_ID: $PRODUCTION_VERCEL_ORG_ID
+    VERCEL_PROJECT_ID: $PRODUCTION_VERCEL_PROJECT_ID
+    NEXT_PUBLIC_API_URL: $PRODUCTION_NEXT_PUBLIC_API_URL
+    NEXT_PUBLIC_APP_ENV: production
+  before_script:
+    - *setup-node
+    - *install-vercel
+  script:
+    - echo "Pulling Vercel environment..."
+    - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+    - echo "Building for production..."
+    - vercel build --prod --token=$VERCEL_TOKEN
+    - echo "Deploying to production..."
+    - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
