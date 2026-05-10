@@ -24,7 +24,7 @@ A production-ready [Next.js](https://nextjs.org) starter (App Router) with TypeS
 
 ## Prerequisites
 
-- **Node.js** >= 24.11
+- **Node.js** >= 24.15
 - **PNPM** (latest) — install via `npm install -g pnpm@latest`
 - **Docker & Docker Compose** — for local PostgreSQL
 - **Vercel CLI** (optional) — `pnpm add -g vercel` for deployment workflows
