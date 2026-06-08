@@ -1,5 +1,4 @@
 import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
 const exclude = [
@@ -10,7 +9,10 @@ const exclude = [
 	"e2e/**/*.spec.{ts,tsx}",
 ];
 export default defineConfig({
-	plugins: [react(), tsconfigPaths()],
+	plugins: [react()],
+	resolve: {
+		tsconfigPaths: true,
+	},
 	test: {
 		coverage: {
 			provider: "v8",

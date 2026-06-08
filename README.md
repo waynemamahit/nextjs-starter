@@ -6,25 +6,25 @@ A production-ready [Next.js](https://nextjs.org) starter (App Router) with TypeS
 
 | Category | Tool |
 |---|---|
-| Framework | Next.js 16 (App Router) + React 19 |
+| Framework | Next.js 16.2 (App Router) + React 19.2 |
 | Language | TypeScript (strict) |
 | Package Manager | PNPM |
-| Styling | Tailwind CSS 4 + DaisyUI 5 |
+| Styling | Tailwind CSS 4 + DaisyUI 5.5 |
 | Icons | Lucide React |
 | ORM | Drizzle ORM (Vercel Postgres) |
 | Validation | Zod |
 | DI Container | Awilix |
 | i18n | i18next / react-i18next |
-| Linting & Formatting | Biome.js |
-| Unit / Integration Tests | Vitest + React Testing Library |
-| E2E Tests | Playwright |
+| Linting & Formatting | Biome 2.4 |
+| Unit / Integration Tests | Vitest 4.1 + React Testing Library |
+| E2E Tests | Playwright 1.60 |
 | Local DB | Docker Compose (PostgreSQL) |
 
 ---
 
 ## Prerequisites
 
-- **Node.js** >= 24.15
+- **Node.js** >= 24.16
 - **PNPM** (latest) — install via `npm install -g pnpm@latest`
 - **Docker & Docker Compose** — for local PostgreSQL
 - **Vercel CLI** (optional) — `pnpm add -g vercel` for deployment workflows
