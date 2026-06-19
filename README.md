@@ -15,16 +15,16 @@ A production-ready [Next.js](https://nextjs.org) starter (App Router) with TypeS
 | Validation | Zod |
 | DI Container | Awilix |
 | i18n | i18next / react-i18next |
-| Linting & Formatting | Biome 2.4 |
+| Linting & Formatting | Biome 2.5 |
 | Unit / Integration Tests | Vitest 4.1 + React Testing Library |
-| E2E Tests | Playwright 1.60 |
+| E2E Tests | Playwright 1.61 |
 | Local DB | Docker Compose (PostgreSQL) |
 
 ---
 
 ## Prerequisites
 
-- **Node.js** >= 24.16
+- **Node.js** >= 24.17
 - **PNPM** (latest) — install via `npm install -g pnpm@latest`
 - **Docker & Docker Compose** — for local PostgreSQL
 - **Vercel CLI** (optional) — `pnpm add -g vercel` for deployment workflows
