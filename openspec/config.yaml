@@ -3,13 +3,14 @@ schema: spec-driven
 context: |
   ## Tech Stack
 
-  - **Framework:** Next.js 16.2 (App Router) with React 19.2
-  - **Language:** TypeScript (strict mode) — latest modern best practices for type safety and code quality. All types, interfaces, enums, and classes must be properly defined. The `any` type is strictly forbidden.
+  - **Framework:** Next.js 16.2.10 (App Router) with React 19.2.7
+  - **Language:** TypeScript 6 (strict mode) — latest modern best practices for type safety and code quality. All types, interfaces, enums, and classes must be properly defined. The `any` type is strictly forbidden.
+  - **Runtime:** Node.js 24.18.0
   - **Package Manager:** PNPM (workspace-enabled)
-  - **Formatting & Linting:** Biome 2.5
+  - **Formatting & Linting:** Biome 2.5.2
   - **Styling:** Tailwind CSS 4 — responsive-first, accessible design using modern utility patterns
-  - **UI Components:** DaisyUI 5.5 with customized built-in themes. Light theme is the default. Define custom components (toast, modal, carousel, etc.) as needed per requirements.
-  - **UI Icons:** Lucide React 1.21
+  - **UI Components:** DaisyUI 5.6 with customized built-in themes. Light theme is the default. Define custom components (toast, modal, carousel, etc.) as needed per requirements.
+  - **UI Icons:** Lucide React 1.23
   - **Form Layouts:** Follow Tailwind CSS Plus application UI form layout patterns (https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts) for best responsive design.
 
   ## Architecture
@@ -46,8 +47,8 @@ context: |
 
   ## Internationalization (i18n)
 
-  - **Library:** i18next — centralized translation references.
-  - **Frontend:** react-i18next
+  - **Library:** i18next 26 — centralized translation references.
+  - **Frontend:** react-i18next 17
   - **Backend (Next.js API):** i18next
   - **UI:** Theme and language switch/selector in the main layout.
 
@@ -68,14 +69,14 @@ context: |
 
   ## Validation
 
-  - **Schema Validation:** Zod for both frontend and backend object/schema validation.
+  - **Schema Validation:** Zod 4 for both frontend and backend object/schema validation.
 
   ## Testing
 
   - **Component Testing:** React Testing Library with proper test coverage.
-  - **Unit Testing:** Vitest for components, API endpoints, and utilities (frontend and backend).
+  - **Unit Testing:** Vitest 4.1 for components, API endpoints, and utilities (frontend and backend).
   - **Integration Testing:** Proper integration tests for API and components to verify features/specifications work correctly. Proper mocking for DB and external services as needed.
-  - **End-to-End Testing:** Playwright.
+  - **End-to-End Testing:** Playwright 1.61.
   - **Coverage Target:** Minimum 90% test coverage. All tests must pass.
   - **Comprehensive Coverage:** All components and API endpoints must have test coverage.
 
