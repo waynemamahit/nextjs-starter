@@ -6,26 +6,26 @@ A production-ready [Next.js](https://nextjs.org) starter (App Router) with TypeS
 
 | Category | Tool |
 |---|---|
-| Framework | Next.js 16.2.10 (App Router) + React 19.2.7 |
-| Language | TypeScript 6 (strict) |
-| Runtime | Node.js 24.18.0 |
+| Framework | Next.js 16.3.0 (App Router) + React 19.2.8 |
+| Language | TypeScript 7 (strict) |
+| Runtime | Node.js 24.19.0 |
 | Package Manager | PNPM |
-| Styling | Tailwind CSS 4 + DaisyUI 5.6 |
-| Icons | Lucide React 1.23 |
+| Styling | Tailwind CSS 4 + DaisyUI 5.7 |
+| Icons | Lucide React 1.31 |
 | ORM | Drizzle ORM (Vercel Postgres) |
 | Validation | Zod 4 |
 | DI Container | Awilix |
 | i18n | i18next 26 / react-i18next 17 |
-| Linting & Formatting | Biome 2.5.2 |
-| Unit / Integration Tests | Vitest 4.1.9 + React Testing Library |
-| E2E Tests | Playwright 1.61.1 |
+| Linting & Formatting | Biome 2.5.8 |
+| Unit / Integration Tests | Vitest 4.1.10 + React Testing Library |
+| E2E Tests | Playwright 1.62.1 |
 | Local DB | Docker Compose (PostgreSQL) |
 
 ---
 
 ## Prerequisites
 
-- **Node.js** 24.18.0 (see `engines` in `package.json`)
+- **Node.js** 24.19.0 (see `engines` in `package.json`)
 - **PNPM** (latest) — install via `npm install -g pnpm@latest`
 - **Docker & Docker Compose** — for local PostgreSQL
 - **Vercel CLI** (optional) — `pnpm add -g vercel` for deployment workflows

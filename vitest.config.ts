@@ -3,6 +3,7 @@ import { defineConfig } from "vitest/config";
 
 const exclude = [
 	"node_modules/",
+	"**/node_modules/",
 	"dist/",
 	"coverage/",
 	"vitest.setup.ts",
