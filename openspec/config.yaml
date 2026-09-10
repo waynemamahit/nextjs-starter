@@ -3,14 +3,14 @@ schema: spec-driven
 context: |
   ## Tech Stack
 
-  - **Framework:** Next.js 16.3.3 (App Router) with React 19.2.8
+  - **Framework:** Next.js 16.3.4 (App Router) with React 19.3.0
   - **Language:** TypeScript 7 (strict mode) — latest modern best practices for type safety and code quality. All types, interfaces, enums, and classes must be properly defined. The `any` type is strictly forbidden.
-  - **Runtime:** Node.js 24.20.0
+  - **Runtime:** Node.js 24.21.0
   - **Package Manager:** PNPM (workspace-enabled)
-  - **Formatting & Linting:** Biome 2.5.11
+  - **Formatting & Linting:** Biome 2.5.13
   - **Styling:** Tailwind CSS 4 — responsive-first, accessible design using modern utility patterns
   - **UI Components:** DaisyUI 5.7 with customized built-in themes. Light theme is the default. Define custom components (toast, modal, carousel, etc.) as needed per requirements.
-  - **UI Icons:** Lucide React 1.38
+  - **UI Icons:** Lucide React 1.44
   - **Form Layouts:** Follow Tailwind CSS Plus application UI form layout patterns (https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts) for best responsive design.
 
   ## Architecture
@@ -74,9 +74,9 @@ context: |
   ## Testing
 
   - **Component Testing:** React Testing Library with proper test coverage.
-  - **Unit Testing:** Vitest 4.1.11 for components, API endpoints, and utilities (frontend and backend).
+  - **Unit Testing:** Vitest 5 for components, API endpoints, and utilities (frontend and backend).
   - **Integration Testing:** Proper integration tests for API and components to verify features/specifications work correctly. Proper mocking for DB and external services as needed.
-  - **End-to-End Testing:** Playwright 1.62.
+  - **End-to-End Testing:** Playwright 1.63.
   - **Coverage Target:** Minimum 90% test coverage. All tests must pass.
   - **Comprehensive Coverage:** All components and API endpoints must have test coverage.
 
