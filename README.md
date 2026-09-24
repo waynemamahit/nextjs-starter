@@ -6,17 +6,17 @@ A production-ready [Next.js](https://nextjs.org) starter (App Router) with TypeS
 
 | Category | Tool |
 |---|---|
-| Framework | Next.js 16.3.4 (App Router) + React 19.3.0 |
+| Framework | Next.js 16.3.6 (App Router) + React 19.3.0 |
 | Language | TypeScript 7 (strict) |
 | Runtime | Node.js 24.21.0 |
 | Package Manager | PNPM |
 | Styling | Tailwind CSS 4 + DaisyUI 5.7 |
-| Icons | Lucide React 1.44 |
+| Icons | Lucide React 1.47 |
 | ORM | Drizzle ORM (Vercel Postgres) |
 | Validation | Zod 4 |
 | DI Container | Awilix |
 | i18n | i18next 26.4 / react-i18next 17 |
-| Linting & Formatting | Biome 2.5.13 |
+| Linting & Formatting | Biome 2.5.14 |
 | Unit / Integration Tests | Vitest 5 + React Testing Library |
 | E2E Tests | Playwright 1.63 |
 | Local DB | Docker Compose (PostgreSQL) |

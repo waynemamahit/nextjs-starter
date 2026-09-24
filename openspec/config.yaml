@@ -3,14 +3,14 @@ schema: spec-driven
 context: |
   ## Tech Stack
 
-  - **Framework:** Next.js 16.3.4 (App Router) with React 19.3.0
+  - **Framework:** Next.js 16.3.6 (App Router) with React 19.3.0
   - **Language:** TypeScript 7 (strict mode) — latest modern best practices for type safety and code quality. All types, interfaces, enums, and classes must be properly defined. The `any` type is strictly forbidden.
   - **Runtime:** Node.js 24.21.0
   - **Package Manager:** PNPM (workspace-enabled)
-  - **Formatting & Linting:** Biome 2.5.13
+  - **Formatting & Linting:** Biome 2.5.14
   - **Styling:** Tailwind CSS 4 — responsive-first, accessible design using modern utility patterns
   - **UI Components:** DaisyUI 5.7 with customized built-in themes. Light theme is the default. Define custom components (toast, modal, carousel, etc.) as needed per requirements.
-  - **UI Icons:** Lucide React 1.44
+  - **UI Icons:** Lucide React 1.47
   - **Form Layouts:** Follow Tailwind CSS Plus application UI form layout patterns (https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts) for best responsive design.
 
   ## Architecture
